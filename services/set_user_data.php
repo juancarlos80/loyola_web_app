@@ -1,9 +1,8 @@
 <?php
-//require_once '../config/database.php';
+require_once '../config/database.php';
 
-//session_name("LoyolaSocio");
-//session_start();
-
+session_name(APP_NAME);
+session_start();
 
 
 $request_body = file_get_contents('php://input');

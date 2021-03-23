@@ -7,6 +7,7 @@
  */
 
 require_once 'idiorm.php';
+define ('APP_NAME', "loyola_socios");
 
 define ('HOST', "localhost");
 define ('NAME_DB', "loyola_app");
