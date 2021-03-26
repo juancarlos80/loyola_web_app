@@ -1,4 +1,4 @@
-@import url('../../css/fonts.css');
+@import url('fonts.css');
 @-ms-viewport{ width: device-width; } 
 @-o-viewport { width: device-width; } 
 @viewport { width: device-width; }
@@ -342,6 +342,9 @@ body {
 }
 .cursor{
   cursor:pointer;
+}
+.css_advertencia{
+  color:#f71c1c;
 }
 /*funcionalidad responsiva*/
 @media screen and (max-width:1040px){

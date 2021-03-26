@@ -52,7 +52,7 @@ $socio = ORM::for_table('user')
                 <?php if($socio->picture != null){
                   $foto = "<img src='uploads/$socio->id/$socio->picture' class='marco_perfil'>";
                 } else {
-                  $foto ="<img src= 'img/foto_perfil.png' class='marco_perfil'>";
+                  $foto ="<img src= 'img/socio.png' class='marco_perfil'>";
                 } ?>
                 <div class="col-3 tm_foto_socio"><?=$foto?></div>
                 <div class="col">
@@ -69,6 +69,7 @@ $socio = ORM::for_table('user')
               <h6 class="descripcion">Foto Carnet de Identidad</h6>
               <div class="card">
                 <div class="card-body">
+                  <?php if($socio->picture_id_1 != null || $socio->picture_id_2){ ?>
                   <div class="row">
                     <div class="col-md">
                       <a href="uploads/<?=$socio->id."/".$socio->picture_id_1?>" target="_blank"><img src='uploads/<?=$socio->id."/".$socio->picture_id_1?>' class="tm_fotos"></a>
@@ -77,13 +78,20 @@ $socio = ORM::for_table('user')
                       <a href="uploads/<?=$socio->id."/".$socio->picture_id_2?>" target="_blank"><img src='uploads/<?=$socio->id."/".$socio->picture_id_2?>' class="tm_fotos"></a>
                     </div>
                   </div>
+                  <?php } else { ?>
+                  <div class="css_advertencia">Sin registro de fotos del documento de identidad</div>
+                  <?php } ?>
                 </div>
               </div>
               <div class="margen"></div>
               <h6 class="descripcion">Foto Selfie</h6>
               <div class="card">
                 <div class="card-body">
-                    <img src='uploads/<?=$socio->id."/".$socio->selfie?>' class="tm_fotos">
+                <?php if($socio->selfie != null){ ?>  
+                  <img src='uploads/<?=$socio->id."/".$socio->selfie?>' class="tm_fotos">
+                <?php } else { ?>
+                  <div class="css_advertencia">Sin registro foto selfie</div>
+                <?php } ?>
                 </div>
               </div>
               <br>
