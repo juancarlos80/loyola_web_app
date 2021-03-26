@@ -22,7 +22,7 @@ function iniciar(){
     if( $.trim($("#buscar_texto").val()) != "" ){
       texto = 'texto='+$("#buscar_texto").val();
     } 
-    window.location.href = 'lista_activacion_socio.php?'+texto;
+    window.location.href = 'lista_activacion_socio.php?'+texto+"&estado="+$("#filtro_estado").val();
   });
   
 }

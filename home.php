@@ -22,7 +22,7 @@ $usuario = $_SESSION['usuario'];
 
     <script src="js/libs/jquery-3.3.1.min.js"></script>     
     <script src="bootstrap/js/bootstrap.min.js"></script>            
-    <script src="js/loguin.js"></script>
+    <script src="js/home.js"></script>
 
     <script type="text/javascript">
       $(document).ready(function () {        

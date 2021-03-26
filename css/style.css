@@ -11,7 +11,25 @@ body {
   padding-right: 0px; 
   padding-left: 0px;
 }
-
+.fondo_block{
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.7;
+  filter: alpha(opacity=70);   
+  color: white;
+  z-index: 1001;
+}
+.img_cargando{
+  position: absolute;
+  top:20%;
+  left: 45%;
+  width: 10%
+}
 /*ventana emergente*/
 .popup {
   position: fixed;
@@ -152,7 +170,7 @@ body {
 .margen_left {
   margin-left: 3%;
 }
-.css_text{
+.css_text, .css_buscador_asamblea{
   margin-left: 8px;
   margin-right: 8px;
   width: 40%;
@@ -163,10 +181,12 @@ body {
 .left{
   float: left;
 }
-.buscador{
+.buscador, .padding_top{
   padding-top: 1%;
 }
-
+.css_buscador_asamblea{
+  width: 63%;
+}
 .css_text::placeholder {
   color: #0d8a3d;
   opacity: 0.6;
@@ -283,6 +303,45 @@ body {
 }
 .btns_tamano{
   width: 110px;
+}
+.css_input {
+  width: 60%;
+  min-width: 170px;
+  color: #1e7e34;
+}
+.input-group-addon {
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.css_remove{
+  font-size: 14px;
+  margin-top: 2%; 
+}
+.desc_datos{
+  min-width: 63px;
+  color: #495057;
+}
+.css_espacio_form{
+  margin-bottom: 1%;
+}
+.font_borrar_img{
+  color:#ef031a;
+}
+.font_borrar_img:hover{
+  color:#495057;
+}
+.margen_sms_dropzone{
+  color: #1e7e34;
+  text-align: center;
+}
+.cursor{
+  cursor:pointer;
 }
 /*funcionalidad responsiva*/
 @media screen and (max-width:1040px){
