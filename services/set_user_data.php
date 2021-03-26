@@ -1,5 +1,6 @@
 <?php
 require_once '../config/database.php';
+require_once '../config/configure.php';
 
 session_name(APP_NAME);
 session_start();
@@ -64,34 +65,42 @@ if( !isset($data_json->phone_number) ){
 
 //Verificamos que no exista informacion duplicada del usuario
 
+$user_reg = null;
 if( isset($data_json->oauth_uid) ){
-  $user = ORM::for_table("user")
+  $user_reg = ORM::for_table("user")
         ->where("oauth_uid", $data_json->oauth_uid)
-        ->find_one();
-          
-  if( $user != null ){
+        ->find_one();            
+} else {
+  if( isset($data_json->email) ){
+    $user_reg = ORM::for_table("user")
+          ->where("email", $data_json->email)
+          ->find_one();   
+  }
+}
+
+if( !isset($data_json->update_user) ){  
+  //Si ya existe no podemos volver a registrar
+  if( $user_reg != null ){
     die ( json_encode(array(
       "success" => false,
       "reason" => "La cuenta de google ya se encuentra registrada, intente iniciar sesion"    
     )));
   }
+  
+  $user = ORM::for_table("user")->create();
+  $user->state = STATUS_USER_UNREVISED;
+  
 } else {
-
-  if( isset($data_json->email) ){
-    $user = ORM::for_table("user")
-          ->where("email", $data_json->email)
-          ->find_one();
-
-    if( $user != null ){
-      die ( json_encode(array(
-        "success" => false,
-        "reason" => "La dirección de correo ya se encuentra registrada"    
-      )));
-    }
+  //Si no existe no podemos actualizar
+  if( $user_reg == null ){
+    die ( json_encode(array(
+      "success" => false,
+      "reason" => "No se encuentra el usuario para actualizar"    
+    )));
   }
+  
+  $user = $user_reg;
 }
-
-$user = ORM::for_table("user")->create();
 
 $user->names = $data_json->names;
 $user->last_name_1 = $data_json->last_name_1;
@@ -103,6 +112,14 @@ $user->birthday = $data_json->birthdate ;
 
 if( isset($data_json->last_name_2) ){
   $user->last_name_2 = $data_json->last_name_2;
+}
+
+if( isset($data_json->id_member) ){
+  $user->id_member = $data_json->id_member;
+}
+
+if( isset($data_json->phone_number) ){
+  $user->phone_number = $data_json->phone_number;
 }
 
 if( isset($data_json->email) ){
