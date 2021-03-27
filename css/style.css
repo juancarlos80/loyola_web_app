@@ -367,4 +367,7 @@ body {
   .cerrar_sesion {
     right: 14%;
   }
+  .popup {
+    left: 28%;
+  }
 }
