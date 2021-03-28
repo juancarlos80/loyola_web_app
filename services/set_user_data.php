@@ -88,8 +88,7 @@ if( !isset($data_json->update_user) ){
   }
   
   $user = ORM::for_table("user")->create();
-  $user->state = STATUS_USER_UNREVISED;
-  
+    
 } else {
   //Si no existe no podemos actualizar
   if( $user_reg == null ){
@@ -99,8 +98,10 @@ if( !isset($data_json->update_user) ){
     )));
   }
   
-  $user = $user_reg;
+  $user = $user_reg;  
 }
+
+$user->state = STATUS_USER_UNREVISED;
 
 $user->names = $data_json->names;
 $user->last_name_1 = $data_json->last_name_1;
