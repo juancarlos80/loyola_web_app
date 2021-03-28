@@ -70,7 +70,7 @@ if( $asamblea->save() ){
     if( file_exists($asamblea_json->eliminar_declaracion) ){
       unlink($asamblea_json->eliminar_declaracion);
     }    
-    $asamblea->statemts = "NULL";
+    $asamblea->statemts = NULL;
   }
   /*guardamos el documento de la jornada*/
   if( isset($asamblea_json->doc_jornada) ){    
@@ -146,8 +146,8 @@ if( $asamblea->save() ){
             "reason" => "No se puede copiar el documento"
       ));  
       die();  
-      $asamblea->statemts = $storeFolder.$asamblea_json->doc_declaracion;
     }
+    $asamblea->statemts= $storeFolder.$asamblea_json->doc_declaracion;
   }
   $asamblea->save();
     

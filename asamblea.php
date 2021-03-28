@@ -80,6 +80,9 @@ $asambleas = ORM::for_table('assembly')
               </div>
             </div>
             <div class="margen"></div>
+            <?php 
+            if($asambleas != null){
+              $index = 1 + ($pagina_actual*$items_x_pagina); ?>
             <div class="row bg_cabecera_row">
               <div class="col-1">Nro</div>
               <div class="col-3">Nombre</div>
@@ -88,10 +91,7 @@ $asambleas = ORM::for_table('assembly')
               <div class="col">Fecha Creación</div>
               <div class="col"></div>
             </div>
-            <?php 
-            if($asambleas != null){
-              $index = 1 + ($pagina_actual*$items_x_pagina);
-            foreach($asambleas as $asamblea){ ?>
+            <?php foreach($asambleas as $asamblea){ ?>
             <div class="row bg_col_row">
               <div class="col-1"><?=$index ++?></div>
               <div class="col-3"><?=$asamblea->name?></div>
@@ -106,7 +106,8 @@ $asambleas = ORM::for_table('assembly')
             </div>
             <?php }
             } else {
-              echo "En este momento no existe usuarios registrados";
+              echo "<div class=margen></div>";
+              echo "<div class='color_datos'>&nbsp En este momento no existe asambleas registradas</div>";
             } ?>
             <div class="margen_inf"></div>
             <?php
