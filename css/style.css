@@ -168,7 +168,7 @@ body {
   margin-bottom: 2%;
 }
 .margen_left {
-  margin-left: 3%;
+  margin-left: 10px;
 }
 .css_text, .css_buscador_asamblea{
   margin-left: 8px;
@@ -323,9 +323,12 @@ body {
   font-size: 14px;
   margin-top: 2%; 
 }
-.desc_datos{
+.desc_datos, .desc_zoom{
   min-width: 63px;
   color: #495057;
+}
+.desc_zoom{
+  min-width: 130px;
 }
 .css_espacio_form{
   margin-bottom: 1%;
@@ -345,6 +348,9 @@ body {
 }
 .css_advertencia{
   color:#f71c1c;
+}
+.tm_input_zoom{
+  width: 50%;
 }
 /*funcionalidad responsiva*/
 @media screen and (max-width:1040px){

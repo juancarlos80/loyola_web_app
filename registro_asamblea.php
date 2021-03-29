@@ -33,11 +33,13 @@ $asamblea_edit = ORM::for_table('assembly')
     <script type="text/javascript" src="js/libs/bootstrap-datetimepicker.js" charset="UTF-8"></script>
     <script type="text/javascript" src="js/libs/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
     <script src="js/libs/dropzone.js"></script>
+    <script src="js/ckeditor/ckeditor.js"></script>
     <script src="js/registro_asamblea.js?v=1"></script>
 
     <script type="text/javascript">
       $(document).ready(function () {        
-        iniciar();                                    
+        iniciar();
+        CKEDITOR.replace('editor');
       });            
     </script>
     <title>Cooperativa LOYOLA</title>
@@ -62,20 +64,6 @@ $asamblea_edit = ORM::for_table('assembly')
               <div class="desc_datos">Titulo Asamblea:</div> 
               <input type="text" id="nombre_asamblea" class="color_datos form-control" <?= isset($asamblea_edit) ? "value='" .$asamblea_edit->name. "'" : "" ?>>
               <div class="css_espacio_form"></div>
-              <div class="row">
-                <div class="col">
-                  <div class="desc_datos left">Período: </div>
-                  <input type="text" id="periodo" class="css_input form-control" <?= isset($asamblea_edit) ? "value='" .$asamblea_edit->period. "'" : "" ?>>
-                </div>
-                <div class="col">
-                  <div class="desc_datos left">Estado: </div>
-                  <select id="estado" class="form-control tm_select left">  
-                    <option value="activo" <?=isset($asamblea_edit)?($asamblea_edit->status=="activo"?'selected':''):''?>>Activo </option>  
-                    <option value="inactivo" <?=isset($asamblea_edit)?($asamblea_edit->status=="inactivo"?'selected':''):''?>>Inactivo </option>  
-                  </select>                  
-                </div>
-              </div>
-              <div class="css_espacio_form"></div>
               <div class="row"> 
                 <div class="col-6">
                   <div class="desc_datos left">Fecha: </div>
@@ -90,11 +78,28 @@ $asamblea_edit = ORM::for_table('assembly')
                   </div>            
                   <div class="clearfix"></div>
                 </div>
+                <div class="col">
+                  <div class="desc_datos left">Estado: </div>
+                  <select id="estado" class="form-control tm_select left">  
+                    <option value="activo" <?=isset($asamblea_edit)?($asamblea_edit->status=="activo"?'selected':''):''?>>Activo </option>  
+                    <option value="inactivo" <?=isset($asamblea_edit)?($asamblea_edit->status=="inactivo"?'selected':''):''?>>Inactivo </option>  
+                  </select>                  
+                </div>
               </div>              
+              <div class="css_espacio_form"></div>
+              <div class="desc_datos">Datos Zoom</div>
+              <div class="margen"></div>
+              <div class="card bg-ligth">
+                <div class="card-body">
+                  <span class="desc_zoom left">Código Zoom: </span>
+                  <input type="text" id="codigo_zoom" class="form-control color_datos tm_input_zoom" value="<?=isset($asamblea_edit)?$asamblea_edit->zoom_code:''?>">
+                  <div class="css_espacio_form"></div>
+                  <span class="desc_zoom left">Contraseña Zoom: </span>
+                  <input type="text" id="password_zoom" class="form-control color_datos tm_input_zoom" value="<?=isset($asamblea_edit)?$asamblea_edit->zoom_password:''?>">
+                </div>
+              </div>
               <br>
-              <div><span class="descripcion">Url Zoom: </span><input type="text" id="url_zoom" class="color_datos form-control" <?= isset($asamblea_edit) ? "value='" .$asamblea_edit->url_zoom. "'" : "" ?>></div>
-              <br>
-              <div class="descripcion">Jornada </div>
+              <div class="descripcion">Orden del Día </div>
               <div class="margen"></div>
               <?php if(isset($asamblea_edit)){ 
                 if($asamblea_edit->journey != null){ 
@@ -138,26 +143,9 @@ $asamblea_edit = ORM::for_table('assembly')
                 </div>
               </div>
               <br>
-              <?php if(isset($asamblea_edit)){ 
-                if($asamblea_edit->statemts	 != null){ 
-                  $url_declaracion = substr($asamblea_edit->statemts, 3);
-                  $nombre_doc = explode("/", $asamblea_edit->statemts);
-              ?>
-              <div class="cont_doc_declaracion">
-              <input type="hidden" id="url_dec" value="<?=$asamblea_edit->statemts?>">
-              <img src="img/ico_eliminar.png" class="left" id="eliminar_declaracion" value="<?=$asamblea_edit->statemts ?>">
-              <a href="<?=$url_declaracion?>" target="_blank"><?= $nombre_doc[4] ?></a>
+              <div class="descripcion">Estado de Resultados</div>
               <div class="margen"></div>
-              <?php }
-              } ?>
-              <div class="descripcion">Declaraciones</div>
-              <div class="margen"></div>
-              <div id="doc_declaracion">
-                <div class="div_dropzone">
-                  <form action="services/photoupload.php" class="dropzone" id="my-dropzone-doc" method="POST"></form>
-                </div>
-              </div>
-            </div>
+              <textarea name="editor" id="doc_declaracion"><?=isset($asamblea_edit->statemts)?$asamblea_edit->statemts:""?></textarea>
             
             <div class="margen"></div>
             <div class="center">
@@ -168,12 +156,13 @@ $asamblea_edit = ORM::for_table('assembly')
                 <?php } else { ?>
                 <div id="btn_guardar" class="btn btn-success btn_volver">Guardar</div>
                 <?php } ?>
-                <div class="btn btn-success btn_volver"><a href="asamblea.php">Volver</a></div>
+                <a href="asamblea.php"><div class="btn btn-success btn_volver">Volver</div></a>
               </div>
-          </div>
-          <div class="margen"></div>
+            </div>
+            <div class="margen"></div>
+          </div>  
         </div>  
-      </div>  
+      </div>    
       <!--Ventana emergente contacto -->
       <div id="fondo_pop" class="popup-overlay"></div>
       <div id="mensaje_form" class="popup" >
@@ -193,8 +182,8 @@ $asamblea_edit = ORM::for_table('assembly')
         </div>
       </div>
       <div id="div_cargando" class="fondo_block">
-      <img src="img/cargando.gif" class="img_cargando">
-    </div>
+        <img src="img/cargando.gif" class="img_cargando">
+      </div>
     </div>
   </body>
 </html>

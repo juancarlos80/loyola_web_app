@@ -2,10 +2,8 @@
 var my_drop;
 var doc_jornada = "";
 var doc_memory = "";
-var doc_declaracion = "";
 var eliminar_jornada = "";
 var eliminar_memory = "";
-var eliminar_declaracion = "";
 
 Dropzone.options.myDropzone = {
   paramName: "file", // The name that will be used to transfer the file
@@ -81,42 +79,6 @@ Dropzone.options.myDropzoneD = {
   }
 };
 
-Dropzone.options.myDropzoneDoc = {
-  paramName: "file", // The name that will be used to transfer the file
-  maxFilesize: 20, // MB
-  maxFiles: 50,
-  acceptedFiles: "application/pdf",
-  forceChunking: true,
-  resizeQuality: 0.2,
-  resizeWidth: 1500,
-  dictDefaultMessage: "<div class='centrear_elemento'><div class='left margen_sms_dropzone'>Sube tus documentos aquí &nbsp;</div> <img src='img/ico_documento.png' class='left'></div><br>",
-  dictFallbackMessage: "Tu navegador no soporta la subida de archivos",
-  dictFileTooBig: "El archivo que intentas subir pesa mucho {{filesize}}, límite {{maxFilesize}} ",
-  dictInvalidFileType: "Solo se pueden subir archivos en pdf",
-  dictRemoveFile: "<div class='font_borrar_img'>Borrar</div>",
-  addRemoveLinks: true,
-  init: function () {
-    my_drop = this;
-    this.on("success", function (file, response) {      
-      try{
-        response = JSON.parse( response );
-        if( response.success ){          
-          file_upload = file;
-          doc_declaracion = file.name ;      
-        } else {
-          mostrar_alerta("No se pudo subir el documento, guarde los cambios y actualice la pagina: "+response.reason);
-        }
-      } catch ( error ){
-        mostrar_alerta("No se pudo subir el documento, guarde los cambios y actualice la pagina");
-      }      
-    });
-
-    this.on("removedfile", function(file) {      
-      delete_file(file.name, doc_declaracion);
-    });
-  }
-};
-
 function iniciar(){
   $(".font_opt_menu").removeClass("opc_seleccionado")
   $("#asamblea").addClass("opc_seleccionado");
@@ -179,7 +141,8 @@ function registrar_asamblea(){
     nombre: $("#nombre_asamblea").val(),
     periodo: $("#periodo").val(),
     fecha_asamblea: $("#fecha_asamblea").val(),
-    url_zoom: $("#url_zoom").val(),
+    codigo_zoom: $.trim( $("#codigo_zoom").val()),
+    password_zoom : $.trim( $("#password_zoom").val()),
     estado: $("#estado").val()
   };
     
@@ -191,18 +154,15 @@ function registrar_asamblea(){
   }
   if( doc_memory != "" ){ 
     asamblea.doc_memory = doc_memory;
-  }
-  if( doc_declaracion != "" ){ 
-    asamblea.doc_declaracion = doc_declaracion;
+  } 
+  if( CKEDITOR.instances['doc_declaracion'].getData() != "" ){ 
+    asamblea.doc_declaracion = CKEDITOR.instances['doc_declaracion'].getData();
   }
   if( eliminar_jornada != "" ){ 
     asamblea.eliminar_jornada = eliminar_jornada;
   }
   if( eliminar_jornada != "" ){ 
     asamblea.eliminar_memory = eliminar_memory;
-  }
-  if( eliminar_declaracion != "" ){ 
-    asamblea.eliminar_declaracion = eliminar_declaracion;
   }
   
   fetch("services/set_asamblea.php", {
@@ -259,17 +219,29 @@ function validar_datos() {
     return false;
   } 
 
-  if ($.trim($("#periodo").val()) === '') {
+  /*if ($.trim($("#periodo").val()) === '') {
     mostrar_alerta("Ingresa el periodo de duración de la asamblea");
     return false;
-  }
+  }*/
   
-  if ($.trim( $("#fecha_asamblea").val()) === '' ){
+  if ($.trim( $("#fecha_asamblea").val()) === ''){
     mostrar_alerta("Debes ingresar la fecha de la asamblea");
     return false;
   }
-  if ($.trim( $("#url_zoom").val()) === '' ){
-    mostrar_alerta("Debes ingresar la url del zoom de la asamblea");
+  if ($.trim( $("#codigo_zoom").val()) === ''){
+    mostrar_alerta("Debes ingresar el código del zoom");
+    return false;
+  }
+  if ($.trim( $("#codigo_zoom").val()).length > 45){
+    mostrar_alerta("Solo puede ingresar 45 caracteres en código zoom");
+    return false;
+  }
+  if ($.trim( $("#password_zoom").val()) === ''){
+    mostrar_alerta("Ingresar la contraseña del zoom, por favor");
+    return false;
+  }
+  if ($.trim( $("#password_zoom").val()).length > 45){
+    mostrar_alerta("Solo puede ingresar 45 caracteres en contraseña zoom");
     return false;
   }
   return true;
