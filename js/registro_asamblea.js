@@ -1,46 +1,9 @@
 //Variables para la carga de documentos
 var my_drop;
-var doc_jornada = "";
+var doc_declaracion = "";
 var doc_memory = "";
-var eliminar_jornada = "";
+var eliminar_declaracion = "";
 var eliminar_memory = "";
-
-Dropzone.options.myDropzone = {
-  paramName: "file", // The name that will be used to transfer the file
-  maxFilesize: 20, // MB
-  maxFiles: 50,
-  acceptedFiles: "application/pdf",
-  forceChunking: true,
-  resizeQuality: 0.2,
-  resizeWidth: 1500,
-  dictDefaultMessage: "<div class='centrear_elemento'><div class='left margen_sms_dropzone'>Sube tus documentos aquí &nbsp;</div><img src='img/ico_documento.png' class='left'></div><br>",
-  dictFallbackMessage: "Tu navegador no soporta la subida de archivos",
-  dictFileTooBig: "El archivo que intentas subir pesa mucho {{filesize}}, límite {{maxFilesize}} ",
-  dictInvalidFileType: "Solo se pueden subir imágenes",
-  dictRemoveFile: "<div class='font_borrar_img'>Borrar</div>",
-  addRemoveLinks: true,
-  init: function () {
-    my_drop = this;
-    this.on("success", function (file, response) {      
-      try{
-        response = JSON.parse( response );
-        if( response.success ){          
-          file_upload = file;
-          doc_jornada = file.name ;      
-        } else {
-          mostrar_alerta("No se pudo subir el documento, guarde los cambios y actualice la pagina: "+response.reason);
-        }
-      } catch ( error ){
-        mostrar_alerta("No se pudo subir el documento, guarde los cambios y actualice la pagina");
-      }      
-    });
-
-    this.on("removedfile", function(file) {      
-      delete_file(file.name, doc_jornada);
-    });
-
-  }
-};
 
 Dropzone.options.myDropzoneD = {
   paramName: "file", // The name that will be used to transfer the file
@@ -79,6 +42,42 @@ Dropzone.options.myDropzoneD = {
   }
 };
 
+Dropzone.options.myDropzoneDoc = {
+  paramName: "file", // The name that will be used to transfer the file
+  maxFilesize: 20, // MB
+  maxFiles: 50,
+  acceptedFiles: "application/pdf",
+  forceChunking: true,
+  resizeQuality: 0.2,
+  resizeWidth: 1500,
+  dictDefaultMessage: "<div class='centrear_elemento'><div class='left margen_sms_dropzone'>Sube tus documentos aquí &nbsp;</div> <img src='img/ico_documento.png' class='left'></div><br>",
+  dictFallbackMessage: "Tu navegador no soporta la subida de archivos",
+  dictFileTooBig: "El archivo que intentas subir pesa mucho {{filesize}}, límite {{maxFilesize}} ",
+  dictInvalidFileType: "Solo se pueden subir archivos en pdf",
+  dictRemoveFile: "<div class='font_borrar_img'>Borrar</div>",
+  addRemoveLinks: true,
+  init: function () {
+    my_drop = this;
+    this.on("success", function (file, response) {      
+      try{
+        response = JSON.parse( response );
+        if( response.success ){          
+          file_upload = file;
+          doc_declaracion = file.name ;      
+        } else {
+          mostrar_alerta("No se pudo subir el documento, guarde los cambios y actualice la pagina: "+response.reason);
+        }
+      } catch ( error ){
+        mostrar_alerta("No se pudo subir el documento, guarde los cambios y actualice la pagina");
+      }      
+    });
+
+    this.on("removedfile", function(file) {      
+      delete_file(file.name, doc_declaracion);
+    });
+  }
+};
+
 function iniciar(){
   $(".font_opt_menu").removeClass("opc_seleccionado")
   $("#asamblea").addClass("opc_seleccionado");
@@ -99,13 +98,9 @@ function iniciar(){
     $(".btn_confirmacion").fadeIn(); 
     mostrar_alerta("¿Seguro que desea eliminar la asamblea?");
   });
-  $("#eliminar_jornada").click( function (){
-    eliminar_jornada = $("#url_jornada").val();
-    $(".cont_doc_jornada").html("");
-  });
-  
+    
   $("#eliminar_memoria").click( function (){
-    eliminar_memoria = $("#url_memory").val();
+    eliminar_memory = $("#url_memory").val();
     $(".cont_doc_memoria").html("");
   });
   
@@ -149,21 +144,23 @@ function registrar_asamblea(){
   if( $("#id_asamblea").val() > 0 ){
     asamblea.id = $("#id_asamblea").val();
   }
-  if( doc_jornada != "" ){ 
-    asamblea.doc_jornada = doc_jornada;
+  
+  if( CKEDITOR.instances['doc_jornada'].getData() != "" ){ 
+    asamblea.doc_jornada = CKEDITOR.instances['doc_jornada'].getData();
   }
   if( doc_memory != "" ){ 
     asamblea.doc_memory = doc_memory;
   } 
-  if( CKEDITOR.instances['doc_declaracion'].getData() != "" ){ 
-    asamblea.doc_declaracion = CKEDITOR.instances['doc_declaracion'].getData();
+  if( doc_declaracion != "" ){ 
+    asamblea.doc_declaracion = doc_declaracion;
   }
-  if( eliminar_jornada != "" ){ 
-    asamblea.eliminar_jornada = eliminar_jornada;
+  if( eliminar_memory != "" ){ 
+    asamblea.eliminar_memory = eliminar_memory; 
   }
-  if( eliminar_jornada != "" ){ 
-    asamblea.eliminar_memory = eliminar_memory;
+  if( eliminar_declaracion != "" ){ 
+    asamblea.eliminar_declaracion = eliminar_declaracion;
   }
+
   
   fetch("services/set_asamblea.php", {
       method: 'POST',

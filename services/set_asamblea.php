@@ -48,53 +48,28 @@ if( isset($asamblea_json->estado) ){
   $asamblea->status = $asamblea_json->estado;  
 }
 
-if(isset($asamblea_json->doc_declaracion)){
-  $asamblea->statemts = $asamblea_json->doc_declaracion;
+if(isset($asamblea_json->doc_jornada)){
+  $asamblea->journey = $asamblea_json->doc_jornada;
 }
 
 ORM::get_db()->beginTransaction();
 
 if( $asamblea->save() ){ 
    /*eliminar documentos*/
-  if( isset($asamblea_json->eliminar_jornada) ){                
-    if( file_exists($asamblea_json->eliminar_jornada) ){
-      unlink($asamblea_json->eliminar_jornada);
-    }  
-    $asamblea->journey = NULL;
-  }
-  
   if( isset($asamblea_json->eliminar_memory) ){                
     if( file_exists($asamblea_json->eliminar_memory) ){
       unlink($asamblea_json->eliminar_memory);
     } 
     $asamblea->memory = NULL;
   }
-  
-  /*guardamos el documento de la jornada*/
-  if( isset($asamblea_json->doc_jornada) ){    
-    $ds = "/";  
-    $tempStoreFolder = '../uploads'.$ds.session_id().$ds;
-    $storeFolder = '../uploads/documentos_asamblea'.$ds.$asamblea->id().$ds;
     
-    if (!file_exists( $storeFolder )) {        
-        if ( !mkdir( $storeFolder, 0777, true) ){
-          ORM::get_db()->rollBack();    
-          die ( json_encode(array(
-            "success" => false,
-            "reason" => "No se pudo crear el directorio para guardar los archivos"
-          )));
-        }
-    }
-    if( !rename( $tempStoreFolder.$asamblea_json->doc_jornada, $storeFolder.$asamblea_json->doc_jornada) ){
-      ORM::get_db()->rollBack();    
-      echo json_encode(array(
-          "success" => false,      
-          "reason" => "No se puede copiar el documento"
-      ));  
-      die();
-    } 
-    $asamblea->journey = $storeFolder.$asamblea_json->doc_jornada;
+  if( isset($asamblea_json->eliminar_declaracion) ){                
+    if( file_exists($asamblea_json->eliminar_declaracion) ){
+      unlink($asamblea_json->eliminar_declaracion);
+    }    
+    $asamblea->statemts = NULL;
   }
+  
   /*guardamos el documento memory*/
   if( isset($asamblea_json->doc_memory) ){    
     $ds = "/";  
@@ -120,6 +95,31 @@ if( $asamblea->save() ){
       die();
     }  
     $asamblea->memory = $storeFolder.$asamblea_json->doc_memory;
+  }
+    /*guardamos el documento declaracion*/
+  if( isset($asamblea_json->doc_declaracion) ){    
+    $ds = "/";  
+    $tempStoreFolder = '../uploads'.$ds.session_id().$ds;
+    $storeFolder = '../uploads/documentos_asamblea'.$ds.$asamblea->id().$ds;
+    
+    if (!file_exists( $storeFolder )) {        
+        if ( !mkdir( $storeFolder, 0777, true) ){
+          ORM::get_db()->rollBack();    
+          die ( json_encode(array(
+            "success" => false,
+            "reason" => "No se pudo crear el directorio para guardar los archivos"
+          )));
+        }
+    }      
+    if( !rename( $tempStoreFolder.$asamblea_json->doc_declaracion, $storeFolder.$asamblea_json->doc_declaracion) ){
+      ORM::get_db()->rollBack();    
+      echo json_encode(array(
+            "success" => false,      
+            "reason" => "No se puede copiar el documento"
+      ));  
+      die();  
+    }
+    $asamblea->statemts= $storeFolder.$asamblea_json->doc_declaracion;
   }
   $asamblea->save();
     

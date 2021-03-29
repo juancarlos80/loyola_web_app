@@ -101,25 +101,8 @@ $asamblea_edit = ORM::for_table('assembly')
               <br>
               <div class="descripcion">Orden del Día </div>
               <div class="margen"></div>
-              <?php if(isset($asamblea_edit)){ 
-                if($asamblea_edit->journey != null){ 
-                   $url_jornada = substr($asamblea_edit->journey , 3);
-                   $nombre_doc = explode("/", $asamblea_edit->journey);
-                  ?>
-              <div class="cont_doc_jornada">
-                <img src="img/ico_eliminar.png" class="cursor left" id="eliminar_jornada">
-                <input type="hidden" id="url_jornada" value="<?=$asamblea_edit->journey?>">
-                <a href="<?=$url_jornada?>" target="_blank"> <?= $nombre_doc[4] ?></a>
-              </div>
-              <div class="margen"></div>
-              <?php }
-              } ?>
-              <div id="doc_jornada">
-                <div class="margen"></div>
-                <div class="div_dropzone">
-                  <form action="services/photoupload.php" class="dropzone" id="my-dropzone" method="POST"></form>
-                </div>
-              </div>
+              <textarea name="editor" id="doc_jornada"><?=isset($asamblea_edit->journey)?$asamblea_edit->journey:""?></textarea>
+            
               <div class="margen"></div>
               <div class="descripcion">Memoria </div>
               <?php if(isset($asamblea_edit)){ 
@@ -129,7 +112,7 @@ $asamblea_edit = ORM::for_table('assembly')
                 ?>
               <div class="cont_doc_memoria">
                 <input type="hidden" id="url_memory" value="<?=$asamblea_edit->memory?>">
-                <img src="img/ico_eliminar.png" class="left" id="eliminar_memoria" value="<?=$asamblea_edit->memory ?>">
+                <img src="img/ico_eliminar.png" class="cursor left" id="eliminar_memoria" value="<?=$asamblea_edit->memory ?>">
                 <a href="<?=$url_memoria?>" target="_blank"><?= $nombre_doc[4] ?></a>
               </div>
               <div class="margen"></div>
@@ -143,10 +126,27 @@ $asamblea_edit = ORM::for_table('assembly')
                 </div>
               </div>
               <br>
+               <?php if(isset($asamblea_edit)){ 
+                if($asamblea_edit->statemts	 != null){ 
+                  $url_declaracion = substr($asamblea_edit->statemts, 3);
+                  $nombre_doc = explode("/", $asamblea_edit->statemts);
+              ?>
+              <div class="cont_doc_declaracion">
+                <input type="hidden" id="url_dec" value="<?=$asamblea_edit->statemts?>">
+                <img src="img/ico_eliminar.png" class="cursor left" id="eliminar_declaracion" value="<?=$asamblea_edit->statemts ?>">
+                <a href="<?=$url_declaracion?>" target="_blank"><?= $nombre_doc[4] ?></a>
+              </div>
+              <div class="margen"></div>
+              <?php }
+              } ?>
               <div class="descripcion">Estado de Resultados</div>
               <div class="margen"></div>
-              <textarea name="editor" id="doc_declaracion"><?=isset($asamblea_edit->statemts)?$asamblea_edit->statemts:""?></textarea>
-            
+              <div id="doc_declaracion">
+                <div class="div_dropzone">
+                  <form action="services/photoupload.php" class="dropzone" id="my-dropzone-doc" method="POST"></form>
+                </div>
+              </div>
+                        
             <div class="margen"></div>
             <div class="center">
               <div class="btns">
