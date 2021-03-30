@@ -99,17 +99,17 @@ $socio = ORM::for_table('user')
               <div class="descripcion">Observaciones:</div>
               <textarea class="fondo_textarea color_datos" id="observacion"></textarea>
             </div>
-            <div class="margen"></div>
+            
+            <input type="hidden" id="estado_socio" value="<?=$socio->state?>">
             <div class="center">
-              <?php if($socio->state == "inactivo" || $socio->state == "para verificacion" ){ ?>
               <div class="btns">
+              <?php if($socio->state == "inactivo" || $socio->state == "para verificacion" ){ ?>
                 <button id="btn_activar" class="btn btn-success btns_tamano">Activar</button>
                 <button id="btn_rechazar" class="btn btn-success btns_tamano">Rechazado</button>
+              <?php } ?>
+                <button id="btn_eliminar_socio" class="btn btn-success btns_tamano">Eliminar</button>
+                <button class="btn btn-success btn_volver btns_tamano">Volver</button>
               </div>
-              <?php } else { ?>
-              <input type="hidden" id="estado_socio" value="<?=$socio->state?>">
-              <div class="btn btn-success btn_volver">Volver</div>
-              <?php }?>
             </div>
             <div class="margen"></div>
           </div>
@@ -128,6 +128,10 @@ $socio = ORM::for_table('user')
             <div class="btn_confirmacion" style="display:none">
               <button id="btn_confirmar" class="btn btn-success btns_tamano">Aceptar</button>
               <button id="btn_cancelar" class="btn btn-dark btns_tamano">Cancelar</button>
+            </div>
+            <div class="confirmar_eliminacion" style="display:none">
+              <button id="btn_confirmar_eliminacion" class="btn btn-success btns_tamano">Aceptar</button>
+              <button id="btn_cancelar_eliminacion" class="btn btn-dark btns_tamano">Cancelar</button>
             </div>
           </div>
           <div class="margen"></div>

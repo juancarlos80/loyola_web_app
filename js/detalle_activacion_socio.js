@@ -27,17 +27,28 @@ function iniciar(){
     activar_socio(estado ="activo");
   });
   
-  $("#btn_cerrar,#btn_cancelar").click(function () {       
+  $("#btn_cerrar,#btn_cancelar, #btn_cancelar_eliminacion").click(function () {       
     $('#mensaje_form').fadeOut();
     $('#fondo_pop').fadeOut();
   }); 
+    
+  $("#btn_eliminar_socio").click(function () {       
+    $('#texto_mensaje').html("¿Seguro que desea eliminar al socio: "+$("#socio").val());
+    $('#mensaje_form').fadeIn('slow');
+    $(".confirmar_eliminacion").fadeIn();
+    $('#fondo_pop').fadeIn();
+  });
+  $("#btn_confirmar_eliminacion").click(function () {       
+    $("#div_cargando").fadeIn();
+    eliminar_socio();
+  });
   
   $(".btn_volver").click(function () {       
     $("#div_cargando").fadeIn();
-    if($("#estado_socio").val() === "activo" ){ 
-      window.location.href = "lista_activacion_socio.php?estado=activo";
+    if($("#estado_socio").val() != "" ){ 
+      window.location.href = "lista_activacion_socio.php?estado="+$("#estado_socio").val();
     } else {
-      window.location.href = "lista_activacion_socio.php?estado=para verificacion";
+      window.location.href = "lista_activacion_socio.php";
     }
   });
 }
@@ -82,4 +93,34 @@ function iniciar(){
       $('#mensaje_form').fadeIn('slow');
       $('#fondo_pop').fadeIn();
     });
+}
+function eliminar_socio(){
+  var data = {
+    id_socio: $("#id_socio").val()
+  };    
+ 
+  fetch('services/del_socio.php',  {
+    method: 'POST',
+    credentials: 'same-origin',
+    body: JSON.stringify(data), 
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(function(response) {      
+    return response.json();
+  })
+  .then(function(response) {              
+    if( response.success ){
+      window.location.href = "lista_activacion_socio.php?estado="+$("#estado_socio").val();      
+    } else {
+      $("#div_cargando").fadeOut();
+      mostrar_alerta("No se pudo eliminar el socio: "+response.reason);
+    }
+  })
+  .catch( function(error){        
+    console.error(error);        
+    $("#div_cargando").fadeOut();
+    mostrar_alerta("No se pudo acceder a eliminar");
+  });
 }

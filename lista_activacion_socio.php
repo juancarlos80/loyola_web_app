@@ -33,7 +33,7 @@ $total_items = ORM::for_table('user')
         ->raw_query(
         " SELECT count(id) total ".
         " FROM user ".
-        " WHERE  state= '".$estado."' ".        
+        " WHERE  state= '".$estado."' AND deleted_at IS NULL ".        
         $where_texto)
         ->find_one();
 
@@ -43,7 +43,7 @@ $socios = ORM::for_table('user')
         ->raw_query(
         " SELECT * ".
         " FROM  user ".
-        " WHERE state = '".$estado."' ".
+        " WHERE state = '".$estado."'  AND deleted_at IS NULL ".
         $where_texto.
         " ORDER BY created_at desc ".
         " LIMIT ".($pagina_actual*$items_x_pagina).", $items_x_pagina")
@@ -88,6 +88,9 @@ $socios = ORM::for_table('user')
           <div class="clearfix"></div>
           <div class="margen"></div>
           <div class="contenedor_datos">
+          <?php 
+          if($socios != null){
+            $index = 1 + ($pagina_actual*$items_x_pagina); ?>
             <div class="row bg_cabecera_row">
               <div class="col-1">Nro</div>
               <div class="col">Código</div>
@@ -95,10 +98,7 @@ $socios = ORM::for_table('user')
               <div class="col-3">Nombre Socio</div>
               <div class="col">Acción</div>
             </div>
-            <?php 
-            if($socios != null){
-              $index = 1 + ($pagina_actual*$items_x_pagina);
-            foreach($socios as $socio){ ?>
+            <?php foreach($socios as $socio){ ?>
             <div class="row bg_col_row">
               <div class="col-1"><?=$index ++?></div>
               <div class="col"><?=$socio->verification_code?></div>
@@ -111,8 +111,8 @@ $socios = ORM::for_table('user')
               </div>
             </div>
             <?php }
-            } else {
-              echo "En este momento no existe usuarios registrados";
+            } else {echo "<div class=padding_top></div>";
+              echo "<div class='color_datos'>&nbsp En este momento no existe usuarios registrados, para el filtro seleccionado</div>";
             } ?>
             <div class="margen_inf"></div>
             <?php
