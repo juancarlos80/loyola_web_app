@@ -83,7 +83,7 @@ if( !isset($data_json->update_user) ){
   if( $user_reg != null ){
     die ( json_encode(array(
       "success" => false,
-      "reason" => "La cuenta de google ya se encuentra registrada, intente iniciar sesion"    
+      "reason" => "La cuenta ya se encuentra registrada, intente iniciar sesion"    
     )));
   }
   
@@ -128,7 +128,8 @@ if( isset($data_json->email) ){
 }
 
 if( isset($data_json->password) ){
-  $user->password = password_hash($data_json->password, PASSWORD_DEFAULT);
+  //$user->password = password_hash($data_json->password, PASSWORD_DEFAULT);
+  $user->password = $data_json->password;
 }
         
 if( isset($data_json->oauth_uid) ){

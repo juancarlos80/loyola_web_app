@@ -35,7 +35,7 @@ $activates_user = ORM::for_table("activate_user")
         ->order_by_desc("created_at")
         ->find_array();
 
-if( count($activates_user) >0 && $user->state == STATUS_USER_INACTIVE ){
+if( count($activates_user) >0 ){
   die (json_encode(array(
     "success" => true,
     "user_status" => $activates_user[0]

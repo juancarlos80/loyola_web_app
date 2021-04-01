@@ -60,7 +60,19 @@ if( !file_exists( "../".$directorio) ){
 }
 
 $tempFile = $_FILES['imageFile']['tmp_name'] ;          
-$targetFile =  "..\\".str_replace("/", "\\",$directorio.$_FILES['imageFile']['name']); 
+if( IS_LINUX ){
+  $targetFile =  "../".$directorio.$_FILES['imageFile']['name']; 
+} else {
+  $targetFile =  "..\\".str_replace("/", "\\",$directorio.$_FILES['imageFile']['name']); 
+}
+
+
+if( !file_exists($tempFile) ){
+  die( json_encode(array(
+        "success" => false,
+        "reason" => "No se encontro el archivo a subir".$tempFile
+  )));
+}
 
 if( !move_uploaded_file($tempFile, $targetFile) ){
   die( json_encode(array(
