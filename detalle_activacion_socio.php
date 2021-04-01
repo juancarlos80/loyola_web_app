@@ -88,7 +88,7 @@ $socio = ORM::for_table('user')
               <div class="card">
                 <div class="card-body">
                 <?php if($socio->selfie != null){ ?>  
-                  <img src='uploads/<?=$socio->id."/".$socio->selfie?>' class="tm_fotos">
+                  <a href="uploads/<?=$socio->id."/".$socio->selfie?>" target="_blank"><img src='uploads/<?=$socio->id."/".$socio->selfie?>' class="tm_fotos"></a>
                 <?php } else { ?>
                   <div class="css_advertencia">Sin registro foto selfie</div>
                 <?php } ?>
