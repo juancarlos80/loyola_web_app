@@ -44,8 +44,19 @@ if( isset($asamblea_json->password_zoom) ){
   $asamblea->zoom_password = $asamblea_json->password_zoom;  
 }
 
-if( isset($asamblea_json->estado) ){
-  $asamblea->status = $asamblea_json->estado;  
+if( isset($asamblea_json->vigente) ){
+  //Si esta asamblea esta vigente deshabilitamos los demas
+  if( $asamblea_json->vigente ){    
+    $estado_asambleas = ORM::for_table("assembly")
+            ->find_many();
+    foreach ( $estado_asambleas as $estado_asamblea ){
+      $estado_asamblea->status = 0;
+      $estado_asamblea->save();
+    }    
+    $asamblea->status = 1;
+  } else {    
+    $asamblea->status = 0;
+  }    
 }
 
 if(isset($asamblea_json->doc_jornada)){

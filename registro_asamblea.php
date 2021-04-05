@@ -78,13 +78,6 @@ $asamblea_edit = ORM::for_table('assembly')
                   </div>            
                   <div class="clearfix"></div>
                 </div>
-                <div class="col">
-                  <div class="desc_datos left">Estado: </div>
-                  <select id="estado" class="form-control tm_select left">  
-                    <option value="activo" <?=isset($asamblea_edit)?($asamblea_edit->status=="activo"?'selected':''):''?>>Activo </option>  
-                    <option value="inactivo" <?=isset($asamblea_edit)?($asamblea_edit->status=="inactivo"?'selected':''):''?>>Inactivo </option>  
-                  </select>                  
-                </div>
               </div>              
               <div class="css_espacio_form"></div>
               <div class="desc_datos">Datos Zoom</div>

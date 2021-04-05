@@ -48,10 +48,12 @@ $asambleas = ORM::for_table('assembly')
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="img/logo.png" />
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">  
+    <link href="bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">  
     <link href="css/style.css?v=1.3" media="screen" rel="stylesheet" type="text/css" />
 
     <script src="js/libs/jquery-3.3.1.min.js"></script>     
-    <script src="bootstrap/js/bootstrap.min.js"></script>            
+    <script src="bootstrap/js/bootstrap.min.js"></script>  
+    <script src="bootstrap/js/bootstrap-toggle.min.js"></script>
     <script src="js/asamblea.js"></script>
 
     <script type="text/javascript">
@@ -96,7 +98,10 @@ $asambleas = ORM::for_table('assembly')
               <div class="col-1"><?=$index ++?></div>
               <div class="col-3"><?=$asamblea->name?></div>
               <div class="col"><?=$asamblea->period?> </div>
-              <div class="col"><?=$asamblea->status?></div>
+              <div class="col">
+                <input id="status" type="checkbox" <?=$asamblea->status?'checked':''?> data-id="<?= $asamblea->id ?>"
+                 class='btn_toggle_item' />
+              </div>
               <div class="col"><?=(new DateTime($asamblea->created_at))->format("d-m-Y")?></div>
               <div class="col">
                 <a href="registro_asamblea.php?id_asamblea=<?=$asamblea->id?>">

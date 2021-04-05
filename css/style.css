@@ -352,6 +352,12 @@ body {
 .tm_input_zoom{
   width: 50%;
 }
+.toggle-on.btn-sm {
+  padding-right: 7px;
+}
+.toggle-off.btn-sm {
+  padding-left: 0px;
+}
 /*funcionalidad responsiva*/
 @media screen and (max-width:1040px){
   .cerrar_sesion {

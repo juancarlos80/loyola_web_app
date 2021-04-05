@@ -137,8 +137,7 @@ function registrar_asamblea(){
     periodo: $("#periodo").val(),
     fecha_asamblea: $("#fecha_asamblea").val(),
     codigo_zoom: $.trim( $("#codigo_zoom").val()),
-    password_zoom : $.trim( $("#password_zoom").val()),
-    estado: $("#estado").val()
+    password_zoom : $.trim( $("#password_zoom").val())
   };
     
   if( $("#id_asamblea").val() > 0 ){
