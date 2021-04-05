@@ -12,7 +12,7 @@ function iniciar(){
   });
   
   $("#btn_rechazar").click(function() { 
-    if($("#observacion").val() != "" ) {
+    if( $.trim($("#observacion").val()) !== "" ){
       $("#div_cargando").fadeIn();
       activar_socio(estado ="inactivo");
     } else { 
@@ -58,7 +58,7 @@ function iniciar(){
       id_socio: $("#id_socio").val(),
       estado: estado
     } 
-    if($("#observacion").val() != ""){
+    if($.trim($("#observacion").val()) != ""){
       data.observacion = $("#observacion").val();
     }
     fetch('services/set_activacion_socio.php',  {

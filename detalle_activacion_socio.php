@@ -11,10 +11,18 @@ if (!isset($_SESSION['usuario'])) {
 $usuario = $_SESSION['usuario'];
 
 if (isset($_GET['id_socio'])) {
-$socio = ORM::for_table('user')
-        ->where("id", $_GET["id_socio"])
-        ->find_one();
+  $socio = ORM::for_table('user')
+          ->where("id", $_GET["id_socio"])
+          ->find_one();
+  if ($socio == null) {
+    die("No se encontro el socio");
+  }
 }
+$socio_obs = ORM::for_table('activate_user')
+        ->where("user_id", $_GET["id_socio"])
+        ->order_by_desc("created_at")
+        ->find_one();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,8 +104,11 @@ $socio = ORM::for_table('user')
               </div>
               <br>
               <div><span class="descripcion">Estado Actual: </span><span class="color_datos"><?=$socio->state?></span></div>
+              <?php if( $socio_obs != null && $socio->state == "inactivo" ){ ?>
+              <div class="descripcion">Ultima Observación: <span class="color_datos"><?=$socio_obs->observations ?></span></div>
+              <?php }?>
               <div class="descripcion">Observaciones:</div>
-              <textarea class="fondo_textarea color_datos" id="observacion"></textarea>
+              <textarea class="fondo_textarea color_datos" id="observacion"><?=($socio_obs != null && $socio_obs->status == "activo")?$socio_obs->observations:''?></textarea>
             </div>
             
             <input type="hidden" id="estado_socio" value="<?=$socio->state?>">
