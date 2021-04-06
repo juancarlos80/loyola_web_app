@@ -358,18 +358,30 @@ body {
 .toggle-off.btn-sm {
   padding-left: 0px;
 }
+.descripcion_col{
+  color: #1e7e34;
+  min-width: 80px;
+  display: none;
+}
+
 /*funcionalidad responsiva*/
 @media screen and (max-width:1040px){
   .cerrar_sesion {
     right: 10%;
   }
 }
-@media screen and (max-width:992px){
+@media screen and (max-width:991px){
   .tm_menu {
     width: 90%;
   }
   .cerrar_sesion {
     right: 12%;
+  }
+  .hide_row{
+    display: none;
+  }
+  .descripcion_col{
+    display: block;
   }
 }
 @media screen and (max-width:773px){

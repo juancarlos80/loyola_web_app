@@ -36,7 +36,7 @@ $asambleas = ORM::for_table('assembly')
         " SELECT * ".
         " FROM assembly ".
         " WHERE deleted_at IS NULL AND LOWER(name) LIKE LOWER('%$texto%')".
-        " ORDER BY status desc ".
+        " ORDER BY created_at desc ".
         " LIMIT ".($pagina_actual*$items_x_pagina).", $items_x_pagina")
         ->find_many();
 

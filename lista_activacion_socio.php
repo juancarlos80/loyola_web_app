@@ -79,8 +79,8 @@ $socios = ORM::for_table('user')
           <div class="buscador">
             <select id="filtro_estado" class="form-control tm_select left">
               <option value="para verificacion" <?="para verificacion"==$estado?"selected":""?>>Para Verificación </option>  
-              <option value="activo" <?="activo"==$estado?"selected":""?>>Activo </option>  
-              <option value="inactivo" <?="inactivo"==$estado?"selected":""?>>Inactivo </option>  
+              <option value="activo" <?="activo"==$estado?"selected":""?>>Activos </option>  
+              <option value="inactivo" <?="inactivo"==$estado?"selected":""?>>Rechazados </option>  
             </select>
             <input type="text" id="buscar_texto" class="form-control css_text left" placeholder="Nombre Socio, Código Socio, CI" value="<?=isset($_GET['texto'])?$_GET['texto']:""?>">
             <img src="img/ico_buscar.png" id="btn_buscar" class="pointer">
@@ -91,20 +91,24 @@ $socios = ORM::for_table('user')
           <?php 
           if($socios != null){
             $index = 1 + ($pagina_actual*$items_x_pagina); ?>
-            <div class="row bg_cabecera_row">
-              <div class="col-1">Nro</div>
-              <div class="col">Código</div>
-              <div class="col">Fecha Activación</div>
-              <div class="col-3">Nombre Socio</div>
-              <div class="col">Acción</div>
+            <div class="row bg_cabecera_row hide_row">
+              <div class="col-lg-1">Nro</div>
+              <div class="col-lg">Código</div>
+              <div class="col-lg">CI</div>
+              <div class="col-lg-2">Nombre Socio</div>
+              <div class="col-lg">Email</div>
+              <div class="col-lg">Fecha Registro</div>
+              <div class="col-lg">Acción</div>
             </div>
             <?php foreach($socios as $socio){ ?>
             <div class="row bg_col_row">
-              <div class="col-1"><?=$index ++?></div>
-              <div class="col"><?=$socio->verification_code?></div>
-              <div class="col"><?=$socio->created_at?> </div>
-              <div class="col-3"><?=$socio->names." ".$socio->last_name_1." ".$socio->last_name_2?></div>
-              <div class="col">
+              <div class="col-lg-1"><span class="descripcion_col left">Nro.:</span><?=$index ++?></div>
+              <div class="col-lg"><span class="descripcion_col left">Código:</span><?=$socio->verification_code?></div>
+              <div class="col-lg"><span class="descripcion_col left">CI: </span><?=$socio->id_number." ".$socio->id_extension?></div>
+              <div class="col-lg-2"><span class="descripcion_col left">Socio:</span><?=$socio->names." ".$socio->last_name_1." ".$socio->last_name_2?></div>
+              <div class="col-lg"><span class="descripcion_col left">Email: </span><?=$socio->email?></div>
+              <div class="col-lg"><span class="descripcion_col left">Fecha Reg.: </span><?=$socio->created_at?> </div>
+              <div class="col-lg"><span class="descripcion_col left">Acción: </span>
                 <a href="detalle_activacion_socio.php?id_socio=<?=$socio->id?>">
                   <img src="img/ico_revisar.png"><span class="font_accion"> <?=$socio->state != "activo"?" Revizar":" Ver Detalles"?></span>
                 </a>
