@@ -103,7 +103,7 @@ $socio_obs = ORM::for_table('activate_user')
                 </div>
               </div>
               <br>
-              <div><span class="descripcion">Estado Actual: </span><span class="color_datos"><?=$socio->state?></span></div>
+              <div><span class="descripcion">Estado Actual: </span><span class="color_datos"><?=($socio->state == "inactivo")?'Rechazado':$socio->state ?></span></div>
               <?php if( $socio_obs != null && $socio->state == "inactivo" ){ ?>
               <div class="descripcion">Ultima Observación: <span class="color_datos"><?=$socio_obs->observations ?></span></div>
               <?php }?>
@@ -114,10 +114,12 @@ $socio_obs = ORM::for_table('activate_user')
             <input type="hidden" id="estado_socio" value="<?=$socio->state?>">
             <div class="center">
               <div class="btns">
-              <?php if($socio->state == "inactivo" || $socio->state == "para verificacion" ){ ?>
+              <?php if($socio->state == "para verificacion" || $socio->state == "inactivo"){ ?>
                 <button id="btn_activar" class="btn btn-success btns_tamano">Activar</button>
+              <?php } 
+              if($socio->state == "activo" || $socio->state == "para verificacion"){ ?>
                 <button id="btn_rechazar" class="btn btn-success btns_tamano">Rechazado</button>
-              <?php } ?>
+                <?php } ?>
                 <button id="btn_eliminar_socio" class="btn btn-success btns_tamano">Eliminar</button>
                 <button class="btn btn-success btn_volver btns_tamano">Volver</button>
               </div>
