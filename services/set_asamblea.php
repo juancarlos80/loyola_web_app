@@ -24,6 +24,7 @@ if( isset( $asamblea_json->id ) ){
     ->find_one();
 } else {
   $asamblea = ORM::for_table('assembly')->create();
+  $asamblea->status = "inactivo";
 }
   
 if( isset($asamblea_json->nombre) ){
@@ -50,12 +51,12 @@ if( isset($asamblea_json->vigente) ){
     $estado_asambleas = ORM::for_table("assembly")
             ->find_many();
     foreach ( $estado_asambleas as $estado_asamblea ){
-      $estado_asamblea->status = 0;
+      $estado_asamblea->status = "inactivo";
       $estado_asamblea->save();
     }    
-    $asamblea->status = 1;
+    $asamblea->status = "activo";
   } else {    
-    $asamblea->status = 0;
+    $asamblea->status = "inactivo";
   }    
 }
 

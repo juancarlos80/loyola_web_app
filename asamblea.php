@@ -99,8 +99,11 @@ $asambleas = ORM::for_table('assembly')
               <div class="col-3"><?=$asamblea->name?></div>
               <div class="col"><?=$asamblea->period?> </div>
               <div class="col">
-                <input id="status" type="checkbox" <?=$asamblea->status?'checked':''?> data-id="<?= $asamblea->id ?>"
-                 class='btn_toggle_item' />
+                <input type="checkbox" <?=($asamblea->status == "activo")?'checked':'Inactivo'?> 
+                     data-id="<?=$asamblea->id?>"
+                     data-toggle="toggle" 
+                     data-on="activo" 
+                     data-off="Inactivo" class='btn_toggle_item'>
               </div>
               <div class="col"><?=(new DateTime($asamblea->created_at))->format("d-m-Y")?></div>
               <div class="col">

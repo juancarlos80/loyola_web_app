@@ -6,12 +6,6 @@ function iniciar(){
   $("#asamblea").addClass("opc_seleccionado");
   $("#div_cargando").fadeOut(); 
   
-  $(".btn_toggle_item").bootstrapToggle({
-     on: "Activo",
-     off: "Inactivo",
-     size: "small"
-  });
-  
   $(".btn_toggle_item").change( function (){
     $("#div_cargando").fadeIn(); 
     registrar_estado_asamblea( $(this).data("id"), $(this).prop('checked') );
