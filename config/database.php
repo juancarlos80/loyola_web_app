@@ -11,7 +11,7 @@ define ('APP_NAME', "loyola_socios");
 
 date_default_timezone_set("America/La_Paz");
 
-/*define ('HOST', "localhost");
+define ('HOST', "localhost");
 define ('NAME_DB', "loyola_app");
 define ('USER_DB', "root");
 define ('PASSWD_DB', "");
@@ -27,14 +27,14 @@ define("SMTP_PASSWORD", "");
 define("SMTP_SECURE", "");//Valores posibles ssl y tls
 
 define("NAME_SERVER","http://localhost/");
-define("ROUTE_SERVER","loyola_socio/");*/
+define("ROUTE_SERVER","loyola_socio/");
 
 
 // Configuracion del servidor
-define ('HOST', "localhost");
-define ('NAME_DB', "quarks5_loyola_socio");
-define ('USER_DB', "quarks5_loyola_socio");
-define ('PASSWD_DB', "LoyolaSocio72718sy28.-");
+/*define ('HOST', "localhost");
+define ('NAME_DB', "");
+define ('USER_DB', "");
+define ('PASSWD_DB', "");
 define ('IS_LINUX', true); 
 
 define("SMTP_SERVER", false);
@@ -47,7 +47,7 @@ define("SMTP_PASSWORD", "");
 define("SMTP_SECURE", "");//Valores posibles ssl y tls
 
 define("NAME_SERVER","http://socioloyola.quarksocialcloud.com");
-define("ROUTE_SERVER","");
+define("ROUTE_SERVER","");*/
 
 
 define("EMAIL_FROM", "no-reply@socioloyola.com");
