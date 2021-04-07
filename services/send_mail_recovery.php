@@ -57,14 +57,14 @@ function send_mail($usuario){
       <br>
       <div>Estimado(a):</div>
       <br>
-      <div>'.$usuario->fullname.' te enviamos este correo debido a tu solicitud de restablecer '
+      <div>'.$usuario->names.' te enviamos este correo debido a tu solicitud de restablecer '
           . 'la clave de tu cuenta en el sistema Socio Loyola, que puedes restablecer '
-          . '<a href="'.NAME_SERVER.ROUTE_SERVER.'/restore_password.php?token='. $usuario->token .'" style="color:#00884a; font-weight: bold;">Aquí</a> 
+          . '<a href="'.NAME_SERVER.ROUTE_SERVER.'/restaurar_clave.php?token='. $usuario->token .'" style="color:#00884a; font-weight: bold;">Aquí</a> 
       </div>      
       <br><br>      
       <div>
         Si no puedes ingresar con el enlace, copia y pega esta direccion en tu navegador:
-        <code>'.NAME_SERVER.ROUTE_SERVER.'/restore_password.php?token='. $usuario->token .'</code>
+        <code>'.NAME_SERVER.ROUTE_SERVER.'/restaurar_clave.php?token='. $usuario->token .'</code>
       </div>
       <br>
       <br>
