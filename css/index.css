@@ -6,6 +6,7 @@
 body {
   font-family: 'VAGRoundedStd-Light';
   color:#fff;
+  background: #09863e;
 }
 .container-fluid {
   padding-right: 0px; 
@@ -41,9 +42,8 @@ body {
 }
 .datos_formulario {
   min-width: 300px;
-  width: 24%;
-  min-height: 250px;
-  margin-left: 23%;
+  width: 60%;
+  min-height: 300px;
   padding-top: 2%;
 }
 
@@ -146,7 +146,7 @@ body {
   color:#000;
   padding-top: 1.5%;
   padding-left: 2%;
-  margin-left: 9%;
+  margin-left: 6%;
   margin-bottom: 3%;
 }
 #btn_ingresar {
@@ -154,7 +154,6 @@ body {
   color: #0b3e1e;
   margin-top: 5%;
   margin-bottom: 5%;
-  margin-left: 40%;
 }
 .css_input{
   background: transparent;
@@ -188,15 +187,55 @@ body {
   width: 78%;
   max-width: 500px;
 }
-.css_ajuste{
-  margin-top: 6px;
-  margin-left: 4%;
-}
 .contenedor_datos {
-  background-image: linear-gradient( #f1f1f1  25%,#33a536, #097834);
-  width: 50%;
-  min-width: 567px;
+  background: #fff;
+  width: 40%;
+  min-width: 480px;
   height: 440px;
   border-radius: 8px;
   margin-top: 7%;  
+  border-bottom-right-radius: 8px;
+  -webkit-box-shadow:0 8px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 8px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 8px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.margen{
+  margin-top: 7px;
+}
+/*css pagina restauracion clave*/
+.fondo{
+  background: #fff;
+  margin-top: 4%;
+  width: 40%;
+  min-width: 500px;
+  height: 520px;
+  border-radius: 10px;
+  margin-bottom: 4%;
+  border-bottom-right-radius: 8px;
+  -webkit-box-shadow:0 8px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 8px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 8px 12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.css_logo {
+  width: 25%;
+  margin-top: 4%;
+  margin-bottom: 1%;
+}
+.formulario_clave{
+  width: 90%;
+}
+.font_verde{
+  color: #1b612b;
+}
+.css_socio{
+  margin-top: 1%;
+  margin-left: 8%;
+  font-size: 18px;
+  color: #1e7e34;
+}
+.css_restaurar{
+  min-width:200px; 
+}
+.margen_left{
+  margin-left: 9%;
 }

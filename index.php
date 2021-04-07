@@ -29,10 +29,10 @@
     <div class="container-fluid">
       <div class="center">
         <div class="contenedor_datos">
-           <div class="center"><img src="img/logo.png" class="img_logo"></div>
-          <div class="datos_formulario">  
-            <div id="form_datos">
-              <div class="clearfix"></div>
+          <div class="center"><img src="img/logo.png" class="img_logo"></div>
+          <br>
+          <div class="center">
+            <div class="datos_formulario">  
               <div class="datos_fom">
                 <img src="img/ico_usr.png" class="left">
                 <input id="usuario" type="text" placeholder="Usuario" class="css_input" autocomplete="off">
@@ -41,9 +41,9 @@
                 <img src="img/ico_password.png" class="left">
                 <input id="clave" type="password" placeholder="Clave" class="css_input" autocomplete="off">
               </div>
-              <div id="btn_ingresar"><div class="left css_ajuste">ENTRAR</div><img src="img/btn_entrar.png"></div>
+              <div class="clearfix"></div>
+              <div id="btn_ingresar" class="center"><div class="left">ENTRAR</div><img src="img/btn_entrar.png"></div>
             </div>
-            <div class="clearfix"></div>
           </div>
         </div>
       </div>

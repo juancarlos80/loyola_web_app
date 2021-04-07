@@ -62,11 +62,15 @@ if( isset($_POST['password']) ){
     <title>Restaurar clave Loyola Socio</title>
   </head>
   <body>    
-    <div class="container-fluid" style="background-color: #00884a">      
+    <div class="container-fluid">      
     <?php if(!$actualizo) { ?>    
-      <h3 >Restaurar la clave usuario: <?=$user->names." ".$user->last_name_1." ".$user->last_name_2?></h3>
+      <div class="center">
       <div class="fondo">
-        <div class="cabecera"></div>        
+        <div class="center"><img src="img/logo.png" class="css_logo"></div>
+        <br>
+        <div class="center"><h4 class="font_verde">Restauración de  Clave</h4></div>
+        <div class="css_socio"><span class="font_verde">Socio: </span><?=$user->names." ".$user->last_name_1." ".$user->last_name_2?></div> 
+        <br>
         <div class="contenedor_login ">
           <?php if($error!=""){?>
           <label><?=$error?></label>
@@ -75,17 +79,16 @@ if( isset($_POST['password']) ){
             <div class="formulario_clave">
               <input id="token" type="hidden" value="<?=$_GET['token']?>" />              
               <div class="margen"></div>
-              <input name="password" type="password" placeholder="Nueva Clave" class="datos_fom" autocomplete="off">
-              <div class="linea_azul"></div>
-              <input name="password_c" type="password" placeholder="Confirmar Nueva Clave" class="datos_fom" autocomplete="off">
-              <div class="linea_azul"></div>
+              <input name="password" type="password" placeholder="Nueva Clave" class="datos_fom margen_left" autocomplete="off">
+              <input name="password_c" type="password" placeholder="Confirmar Nueva Clave" class="datos_fom margen_left" autocomplete="off">
             </div>
             <br>
-            <input type="submit" value="Restaurar" />
-          </form>          
+            <div class="center"><input type="submit" value="Restaurar" class="btn btn-md btn-success css_restaurar"/></div>
+          </form>   
           <div class="clearfix"></div>          
         </div>
       </div>
+    </div>
     <?php } else { ?>      
       <div class="titulo_login">Su clave se actualizo correctamente, ya puede ingresar a la aplicación</div>
     <?php }  ?>
