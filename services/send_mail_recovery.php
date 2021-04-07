@@ -22,6 +22,7 @@ if( !isset($usuario_json->email) ){
 
 $user = ORM::for_table("user")
         ->where("email", $usuario_json->email)
+        ->where_null("deleted_at")  
         ->find_one();
 
 if( $user== null ){

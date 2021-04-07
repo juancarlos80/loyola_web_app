@@ -14,12 +14,14 @@ $user = null;
 if( isset($data_json->oauth_uid) ){
   $user = ORM::for_table("user")
         ->where("oauth_uid", $data_json->oauth_uid)
+        ->where_null("deleted_at")  
         ->find_one();            
 } else {
   if( isset($data_json->email) && isset($data_json->password) ){
     $user = ORM::for_table("user")
           ->where("email", $data_json->email)
           ->where("password", $data_json->password)
+          ->where_null("deleted_at")  
           ->find_one();   
   }
 }
