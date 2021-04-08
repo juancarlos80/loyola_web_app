@@ -218,7 +218,7 @@ body {
 }
 .css_logo {
   width: 25%;
-  margin-top: 4%;
+  margin-top: 6%;
   margin-bottom: 1%;
 }
 .formulario_clave{
@@ -228,7 +228,7 @@ body {
   color: #1b612b;
 }
 .css_socio{
-  margin-top: 1%;
+  margin-top: 2%;
   margin-left: 8%;
   font-size: 18px;
   color: #1e7e34;
@@ -238,4 +238,17 @@ body {
 }
 .margen_left{
   margin-left: 9%;
+}
+.css_advertencia{
+  margin-left: 8%;
+  margin-right: 8%;
+  font-size: 14px;
+  color: #d80404;
+}
+.css_aviso {
+  margin-top: 13px;
+  padding: 9%;
+  color: #016323;
+  text-align: center;
+  font-size: 24px;
 }
