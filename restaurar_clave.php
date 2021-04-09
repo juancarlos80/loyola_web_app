@@ -63,18 +63,18 @@ if( isset($_POST['password']) ){
     <title>Restaurar clave Loyola Socio</title>
   </head>
   <body>    
-    <div class="container-fluid">      
-    <?php if(!$actualizo) { ?>    
+    <div class="container-fluid">          
       <div class="center">
       <div class="fondo">
         <div class="center"><img src="img/logo.png" class="css_logo"></div>
         <br>
-        <div class="center"><h4 class="font_verde">Restauración de  Clave</h4></div>
+        <?php if(!$actualizo) { ?>
+        <div class="center"><h4 class="font_verde">Restauración de Clave</h4></div>
         <div class="css_socio"><span class="font_verde">Socio: </span><?=$user->names." ".$user->last_name_1." ".$user->last_name_2?></div> 
-        <br>
+        <div class="margen"></div>
         <div class="contenedor_login ">
           <?php if($error!=""){?>
-          <label><?=$error?></label>
+          <div class="css_advertencia"><?=$error?></div>
           <?php } ?>
           <form method="POST">
             <div class="formulario_clave">
@@ -91,7 +91,7 @@ if( isset($_POST['password']) ){
       </div>
     </div>
     <?php } else { ?>      
-      <div class="titulo_login">Su clave se actualizo correctamente, ya puede ingresar a la aplicación</div>
+      <div class="css_aviso">Su clave se actualizo correctamente, ya puede ingresar a la aplicación</div>
     <?php }  ?>
     </div>    
   </body>
