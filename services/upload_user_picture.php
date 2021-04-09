@@ -24,11 +24,13 @@ $user = null;
 if( isset($_POST["oauth_uid"]) ){
   $user = ORM::for_table("user")
           ->where("oauth_uid", $_POST["oauth_uid"])
+          ->where_null("deleted_at")
           ->find_one();  
 } else {
   if( isset($_POST["email"]) ){
     $user = ORM::for_table("user")
             ->where("email", $_POST["email"])
+            ->where_null("deleted_at")
             ->find_one();  
   }
 }

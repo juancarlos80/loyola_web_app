@@ -69,11 +69,13 @@ $user_reg = null;
 if( isset($data_json->oauth_uid) ){
   $user_reg = ORM::for_table("user")
         ->where("oauth_uid", $data_json->oauth_uid)
+        ->where_null("deleted_at")  
         ->find_one();            
 } else {
   if( isset($data_json->email) ){
     $user_reg = ORM::for_table("user")
           ->where("email", $data_json->email)
+          ->where_null("deleted_at")  
           ->find_one();   
   }
 }

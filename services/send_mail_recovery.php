@@ -33,7 +33,7 @@ if( $user== null ){
   die();
 }
 
-$user->token = password_hash($user->id."-".$user->email, PASSWORD_DEFAULT);
+$user->token = md5($user->id."-".$user->email);
 
 if( !send_mail($user) ){  
   echo json_encode(array(

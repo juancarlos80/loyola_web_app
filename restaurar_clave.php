@@ -7,7 +7,8 @@ if( !isset($_GET['token']) ){
 
 require_once 'config/database.php';
 
-$user = ORM::for_table("user")->where("token", $_REQUEST['token'])->find_one();
+$user = ORM::for_table("user")
+        ->where("token", $_REQUEST['token'])->find_one();
 
 if( $user == null ){
   header('Location: index.php');
